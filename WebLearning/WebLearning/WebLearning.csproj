@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\Common\Common.csproj" />
     <ProjectReference Include="..\WebLearning.DataPresentation\WebLearning.DataPresentation.csproj" />
   </ItemGroup>
 

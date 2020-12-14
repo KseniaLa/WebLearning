@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Common.Entities;
 using Microsoft.AspNetCore.Mvc;
 using WebLearning.DataPresentation.Models;
 
@@ -14,18 +15,20 @@ namespace WebLearning.Controllers
      {
           // GET: api/users
           [HttpGet]
-          public IActionResult Get()
+          public IActionResult GetUser()
           {
                var user = new User { Name = "Bob", Age = 21 };
                
                return Ok(user);
           }
 
-          // GET api/<controller>/5
-          [HttpGet("{id}")]
-          public string Get(int id)
+          // GET api/users/item
+          [HttpGet("item")]
+          public IActionResult GetItem()
           {
-               return "value";
+               var user = new Item { Id = "123", Name = "Test" };
+
+               return Ok(user);
           }
 
           // POST api/<controller>
