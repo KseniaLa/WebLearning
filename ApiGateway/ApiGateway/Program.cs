@@ -23,7 +23,8 @@ namespace ApiGateway
                     config
                     .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
                     .AddJsonFile("appsettings.json", true, true)
-                    .AddJsonFile($"configuration.{hostingContext.HostingEnvironment.EnvironmentName}.json", false, true)
+                    .AddJsonFile("ocelot.json")
+                    .AddJsonFile($"configuration.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
                     .AddEnvironmentVariables();
                })
                .ConfigureWebHostDefaults(webBuilder =>
