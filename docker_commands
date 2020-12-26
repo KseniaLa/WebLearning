@@ -1,6 +1,7 @@
 # Create image: sudo docker build -f WebLearning/WebLearning/Dockerfile -t weblearning .
 # View all images: docker image ls
 # Create container: sudo docker run -d -p 5000:80 --name weblearning_container weblearning
+	# Create container with logs config: sudo docker run -d -p 5000:80 --name weblearning_container --log-driver json-file weblearning_final 
 # Remove image: docker rmi <IMAGE ID>
 # View all containers: docker ps -a
 # Stop container: docker stop <CONTAINER_ID>
