@@ -5,13 +5,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-<<<<<<< HEAD
           "Host": "user-mic",
           "Port": 80
-=======
-          "Host": "localhost",
-          "Port": 5001
->>>>>>> main
         }
       ],
       "UpstreamPathTemplate": "/api/users",
@@ -22,13 +17,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-<<<<<<< HEAD
           "Host": "task-mic",
           "Port": 80
-=======
-          "Host": "localhost",
-          "Port": 5002
->>>>>>> main
         }
       ],
       "UpstreamPathTemplate": "/api/tasks",
@@ -39,8 +29,4 @@
     "RequestIdKey": "OcRequestId",
     "AdministrationPath": "/administration"
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> main
