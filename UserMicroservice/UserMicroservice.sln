@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserMicroservice", "UserMicroservice\UserMicroservice.csproj", "{B9E65621-C3C3-4CD5-9BF5-74C1FBDE05F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserMicroservice", "UserMicroservice\UserMicroservice.csproj", "{B9E65621-C3C3-4CD5-9BF5-74C1FBDE05F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserMicroservice.DataPresentation", "UserMicroservice.DataPresentation\UserMicroservice.DataPresentation.csproj", "{38FC25CA-C882-4B0D-A925-B12D002826CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserMicroservice.DataPresentation", "UserMicroservice.DataPresentation\UserMicroservice.DataPresentation.csproj", "{38FC25CA-C882-4B0D-A925-B12D002826CD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "..\Common\Common\Common.csproj", "{EEDFDEBE-3D03-491B-A220-2B43FEEC730A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserMicroservice.Services", "UserMicroservice.Services\UserMicroservice.Services.csproj", "{5FB649F6-0463-43CD-84DD-FB263EF487C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{EEDFDEBE-3D03-491B-A220-2B43FEEC730A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEDFDEBE-3D03-491B-A220-2B43FEEC730A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEDFDEBE-3D03-491B-A220-2B43FEEC730A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FB649F6-0463-43CD-84DD-FB263EF487C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FB649F6-0463-43CD-84DD-FB263EF487C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FB649F6-0463-43CD-84DD-FB263EF487C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FB649F6-0463-43CD-84DD-FB263EF487C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

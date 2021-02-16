@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Common.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using UserMicroservice.DataPresentation.Models;
+using UserMicroservice.Services.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,23 +15,22 @@ namespace UserMicroservice.Controllers
      [Route("api/users")]
      public class UsersController : Controller
      {
+          private readonly ILogger _logger;
+          private readonly IUserService _userService;
+
+          public UsersController(IUserService userService, ILogger<UsersController> logger)
+          {
+               _userService = userService;
+               _logger = logger;
+          }
+
           // GET: api/<controller>
           [HttpGet]
           public IActionResult Get()
           {
-               var users = new List<User>
-               {
-                    new User { Id = 1, Name = "Bob" },
-                    new User { Id = 2, Name = "Ann" },
-               };
+               _logger.LogInformation("Start getting users");
 
-               var item = new Item { Id = "www", Name = "Ben" };
-
-               users.Add(new User
-               {
-                    Id = 3,
-                    Name = item.Name
-               });
+               var users = _userService.GetUsers();
 
                return Ok(users);
           }
