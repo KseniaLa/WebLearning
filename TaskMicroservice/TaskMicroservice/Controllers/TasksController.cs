@@ -6,6 +6,7 @@ using Common.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TaskMicroservice.DataPresentation.Models;
+using TaskMicroservice.Messaging.Publishing;
 using TaskMicroservice.Services.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,10 +18,12 @@ namespace TaskMicroservice.Controllers
      {
           private readonly ILogger _logger;
           private readonly ITaskService _taskService;
+          private readonly ITaskSender _taskSender;
 
-          public TasksController(ITaskService taskService, ILogger<TasksController> logger) 
+          public TasksController(ITaskService taskService, ITaskSender taskSender, ILogger<TasksController> logger) 
           {
                _taskService = taskService;
+               _taskSender = taskSender;
                _logger = logger;
           }
 
@@ -31,6 +34,8 @@ namespace TaskMicroservice.Controllers
                _logger.LogInformation("Start tasks processing");
 
                var tasks = _taskService.GetTasks();
+
+               _taskSender.SendMessage(new WorkTask { Id = 10, Title = "RabbitMQ task" });
 
                return Ok(tasks);
           }

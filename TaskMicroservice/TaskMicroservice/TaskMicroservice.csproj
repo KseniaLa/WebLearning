@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Common\Common.csproj" />
     <ProjectReference Include="..\TaskMicroservice.DataPresentation\TaskMicroservice.DataPresentation.csproj" />
+    <ProjectReference Include="..\TaskMicroservice.Messaging\TaskMicroservice.Messaging.csproj" />
     <ProjectReference Include="..\TaskMicroservice.Services\TaskMicroservice.Services.csproj" />
   </ItemGroup>
 

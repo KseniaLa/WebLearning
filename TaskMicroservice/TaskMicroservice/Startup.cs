@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using TaskMicroservice.Messaging.Configuration;
+using TaskMicroservice.Messaging.Publishing;
 using TaskMicroservice.Services;
 using TaskMicroservice.Services.Interfaces;
 
@@ -33,6 +35,11 @@ namespace TaskMicroservice
                  .AsImplementedInterfaces()
                  .WithScopedLifetime()
                );
+
+               services.AddOptions();
+
+               services.Configure<RabbitMqConfiguration>(Configuration.GetSection("RabbitMq"));
+               services.AddSingleton<ITaskSender, TaskSender>();
 
                services.AddControllers();
           }
