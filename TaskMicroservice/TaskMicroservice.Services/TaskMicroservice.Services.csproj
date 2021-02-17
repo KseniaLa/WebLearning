@@ -1,18 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Scrutor" Version="2.2.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Common\Common.csproj" />
     <ProjectReference Include="..\TaskMicroservice.DataPresentation\TaskMicroservice.DataPresentation.csproj" />
-    <ProjectReference Include="..\TaskMicroservice.Services\TaskMicroservice.Services.csproj" />
   </ItemGroup>
-
 
 </Project>

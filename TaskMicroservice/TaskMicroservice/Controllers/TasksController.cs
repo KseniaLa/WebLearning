@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Common.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using TaskMicroservice.DataPresentation.Models;
+using TaskMicroservice.Services.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,24 +15,22 @@ namespace TaskMicroservice.Controllers
      [Route("api/tasks")]
      public class TasksController : Controller
      {
+          private readonly ILogger _logger;
+          private readonly ITaskService _taskService;
+
+          public TasksController(ITaskService taskService, ILogger<TasksController> logger) 
+          {
+               _taskService = taskService;
+               _logger = logger;
+          }
+
           // GET: api/<controller>
           [HttpGet]
           public IActionResult Get()
           {
-               var tasks = new List<WorkTask>
-               {
-                    new WorkTask { Id = 1, Title = "Task1" },
-                    new WorkTask { Id = 2, Title = "Task2" },
-                    new WorkTask { Id = 3, Title = "Task3" },
-               };
+               _logger.LogInformation("Start tasks processing");
 
-               var item = new Item { Id = "www", Name = "Item4" };
-
-               tasks.Add(new WorkTask
-               {
-                    Id = 4,
-                    Title = $"{item.Name} - {item.Id}"
-               });
+               var tasks = _taskService.GetTasks();
 
                return Ok(tasks);
           }
