@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Entities;
+using Common.Messaging;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TaskMicroservice.DataPresentation.Models;
@@ -35,7 +36,7 @@ namespace TaskMicroservice.Controllers
 
                var tasks = _taskService.GetTasks();
 
-               _taskSender.SendMessage(new WorkTask { Id = 10, Title = "RabbitMQ task" });
+               _taskSender.SendMessage(new TaskAssignedMessage { TaskId = 10, TaskName = "RabbitMQ task", AssignedByUserId = 1, AssignedToUserId = 2 });
 
                return Ok(tasks);
           }

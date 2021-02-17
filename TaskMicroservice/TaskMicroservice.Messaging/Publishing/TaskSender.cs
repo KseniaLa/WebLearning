@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Common.Messaging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System;
@@ -27,7 +28,7 @@ namespace TaskMicroservice.Messaging.Publishing
                CreateConnection();
           }
 
-          public void SendMessage(WorkTask task)
+          public void SendMessage(TaskAssignedMessage task)
           {
                if (ConnectionExists())
                {
