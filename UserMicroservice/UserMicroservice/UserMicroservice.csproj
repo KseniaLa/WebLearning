@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Common\Common.csproj" />
     <ProjectReference Include="..\UserMicroservice.DataPresentation\UserMicroservice.DataPresentation.csproj" />
+    <ProjectReference Include="..\UserMicroservice.Messaging\UserMicroservice.Messaging.csproj" />
     <ProjectReference Include="..\UserMicroservice.Services\UserMicroservice.Services.csproj" />
   </ItemGroup>
 

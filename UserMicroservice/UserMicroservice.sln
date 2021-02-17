@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserMicroservice.DataPresen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "..\Common\Common\Common.csproj", "{EEDFDEBE-3D03-491B-A220-2B43FEEC730A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserMicroservice.Services", "UserMicroservice.Services\UserMicroservice.Services.csproj", "{5FB649F6-0463-43CD-84DD-FB263EF487C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserMicroservice.Services", "UserMicroservice.Services\UserMicroservice.Services.csproj", "{5FB649F6-0463-43CD-84DD-FB263EF487C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserMicroservice.Messaging", "UserMicroservice.Messaging\UserMicroservice.Messaging.csproj", "{CC415C09-13D5-4F5B-A123-72AE1DED8F49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{5FB649F6-0463-43CD-84DD-FB263EF487C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FB649F6-0463-43CD-84DD-FB263EF487C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FB649F6-0463-43CD-84DD-FB263EF487C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC415C09-13D5-4F5B-A123-72AE1DED8F49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC415C09-13D5-4F5B-A123-72AE1DED8F49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC415C09-13D5-4F5B-A123-72AE1DED8F49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC415C09-13D5-4F5B-A123-72AE1DED8F49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

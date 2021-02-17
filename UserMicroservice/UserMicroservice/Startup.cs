@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using UserMicroservice.Messaging.Configuration;
+using UserMicroservice.Messaging.Consuming;
 using UserMicroservice.Services;
 using UserMicroservice.Services.Interfaces;
 
@@ -33,6 +35,17 @@ namespace UserMicroservice
                  .AsImplementedInterfaces()
                  .WithScopedLifetime()
                );
+
+               services.AddOptions();
+
+               var serviceClientSettingsConfig = Configuration.GetSection("RabbitMq");
+               var serviceClientSettings = serviceClientSettingsConfig.Get<RabbitMqConfiguration>();
+               services.Configure<RabbitMqConfiguration>(serviceClientSettingsConfig);
+
+               if (serviceClientSettings.Enabled)
+               {
+                    services.AddHostedService<TaskAssignedReceiver>();
+               }
 
                services.AddControllers();
           }
