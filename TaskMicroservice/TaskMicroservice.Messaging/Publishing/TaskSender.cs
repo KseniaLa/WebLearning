@@ -34,12 +34,14 @@ namespace TaskMicroservice.Messaging.Publishing
                {
                     using (var channel = _connection.CreateModel())
                     {
-                         channel.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
+                         //channel.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
+                         channel.ExchangeDeclare(exchange: "tasks", type: ExchangeType.Fanout);
 
                          var json = JsonConvert.SerializeObject(task);
                          var body = Encoding.UTF8.GetBytes(json);
 
-                         channel.BasicPublish(exchange: "", routingKey: _queueName, basicProperties: null, body: body);
+                         //channel.BasicPublish(exchange: "", routingKey: _queueName, basicProperties: null, body: body);
+                         channel.BasicPublish(exchange: "tasks", routingKey: "", basicProperties: null, body: body);
                     }
                }
           }

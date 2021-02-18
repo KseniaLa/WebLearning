@@ -46,12 +46,17 @@ namespace UserMicroservice.Messaging.Consuming
                _connection = factory.CreateConnection();
                _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
                _channel = _connection.CreateModel();
-               _channel.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
+               //_channel.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
           }
 
           protected override Task ExecuteAsync(CancellationToken stoppingToken)
           {
                stoppingToken.ThrowIfCancellationRequested();
+
+               _channel.ExchangeDeclare(exchange: "tasks", type: ExchangeType.Fanout);
+
+               var queueName = _channel.QueueDeclare().QueueName;
+               _channel.QueueBind(queue: queueName, exchange: "tasks", routingKey: "");
 
                var consumer = new EventingBasicConsumer(_channel);
                consumer.Received += (ch, ea) =>
@@ -61,14 +66,15 @@ namespace UserMicroservice.Messaging.Consuming
 
                     HandleMessage(updateCustomerFullNameModel);
 
-                    _channel.BasicAck(ea.DeliveryTag, false);
+                    //_channel.BasicAck(ea.DeliveryTag, false);
                };
                consumer.Shutdown += OnConsumerShutdown;
                consumer.Registered += OnConsumerRegistered;
                consumer.Unregistered += OnConsumerUnregistered;
                consumer.ConsumerCancelled += OnConsumerCancelled;
 
-               _channel.BasicConsume(_queueName, false, consumer);
+               //_channel.BasicConsume(_queueName, false, consumer);
+               _channel.BasicConsume(queue: queueName, autoAck: true, consumer: consumer);
 
                return Task.CompletedTask;
           }
