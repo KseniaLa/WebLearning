@@ -13,15 +13,15 @@ namespace TaskMicroservice.Messaging.Publishing
      public class TaskSender : ITaskSender
      {
           private readonly string _hostname;
+          private readonly string _exchange;
           private readonly string _password;
-          private readonly string _queueName;
           private readonly string _username;
           private IConnection _connection;
 
           public TaskSender(IOptions<RabbitMqConfiguration> rabbitMqOptions)
           {
-               _queueName = rabbitMqOptions.Value.QueueName;
                _hostname = rabbitMqOptions.Value.Hostname;
+               _exchange = rabbitMqOptions.Value.Exchange;
                _username = rabbitMqOptions.Value.UserName;
                _password = rabbitMqOptions.Value.Password;
 
@@ -34,14 +34,12 @@ namespace TaskMicroservice.Messaging.Publishing
                {
                     using (var channel = _connection.CreateModel())
                     {
-                         //channel.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
-                         channel.ExchangeDeclare(exchange: "tasks", type: ExchangeType.Fanout);
+                         channel.ExchangeDeclare(exchange: _exchange, type: ExchangeType.Fanout);
 
                          var json = JsonConvert.SerializeObject(task);
                          var body = Encoding.UTF8.GetBytes(json);
 
-                         //channel.BasicPublish(exchange: "", routingKey: _queueName, basicProperties: null, body: body);
-                         channel.BasicPublish(exchange: "tasks", routingKey: "", basicProperties: null, body: body);
+                         channel.BasicPublish(exchange: _exchange, routingKey: "", basicProperties: null, body: body);
                     }
                }
           }

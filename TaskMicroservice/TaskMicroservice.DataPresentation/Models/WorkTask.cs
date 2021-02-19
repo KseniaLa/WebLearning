@@ -8,5 +8,7 @@ namespace TaskMicroservice.DataPresentation.Models
      {
           public int Id { get; set; }
           public string Title { get; set; }
+          public int AssignedByUserId { get; set; }
+          public int AssignedToUserId { get; set; }
      }
 }

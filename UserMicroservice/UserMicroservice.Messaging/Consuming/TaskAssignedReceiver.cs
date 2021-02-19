@@ -20,14 +20,14 @@ namespace UserMicroservice.Messaging.Consuming
           private IConnection _connection;
           private ILogger _logger;
           private readonly string _hostname;
-          private readonly string _queueName;
+          private readonly string _exchange;
           private readonly string _username;
           private readonly string _password;
 
           public TaskAssignedReceiver(IOptions<RabbitMqConfiguration> rabbitMqOptions, ILogger<TaskAssignedReceiver> logger)
           {
                _hostname = rabbitMqOptions.Value.Hostname;
-               _queueName = rabbitMqOptions.Value.QueueName;
+               _exchange = rabbitMqOptions.Value.Exchange;
                _username = rabbitMqOptions.Value.UserName;
                _password = rabbitMqOptions.Value.Password;
                _logger = logger;
@@ -46,17 +46,16 @@ namespace UserMicroservice.Messaging.Consuming
                _connection = factory.CreateConnection();
                _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
                _channel = _connection.CreateModel();
-               //_channel.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
           }
 
           protected override Task ExecuteAsync(CancellationToken stoppingToken)
           {
                stoppingToken.ThrowIfCancellationRequested();
 
-               _channel.ExchangeDeclare(exchange: "tasks", type: ExchangeType.Fanout);
+               _channel.ExchangeDeclare(exchange: _exchange, type: ExchangeType.Fanout);
 
                var queueName = _channel.QueueDeclare().QueueName;
-               _channel.QueueBind(queue: queueName, exchange: "tasks", routingKey: "");
+               _channel.QueueBind(queue: queueName, exchange: _exchange, routingKey: "");
 
                var consumer = new EventingBasicConsumer(_channel);
                consumer.Received += (ch, ea) =>
@@ -65,15 +64,12 @@ namespace UserMicroservice.Messaging.Consuming
                     var updateCustomerFullNameModel = JsonConvert.DeserializeObject<TaskAssignedMessage>(content);
 
                     HandleMessage(updateCustomerFullNameModel);
-
-                    //_channel.BasicAck(ea.DeliveryTag, false);
                };
                consumer.Shutdown += OnConsumerShutdown;
                consumer.Registered += OnConsumerRegistered;
                consumer.Unregistered += OnConsumerUnregistered;
                consumer.ConsumerCancelled += OnConsumerCancelled;
 
-               //_channel.BasicConsume(_queueName, false, consumer);
                _channel.BasicConsume(queue: queueName, autoAck: true, consumer: consumer);
 
                return Task.CompletedTask;
