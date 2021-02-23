@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using TaskMicroservice.Messaging.AzureServiceBus.Configuration;
+using TaskMicroservice.Messaging.AzureServiceBus.Publishing;
 using TaskMicroservice.Messaging.Configuration;
 using TaskMicroservice.Messaging.Publishing;
 using TaskMicroservice.Services;
@@ -40,6 +42,9 @@ namespace TaskMicroservice
 
                services.Configure<RabbitMqConfiguration>(Configuration.GetSection("RabbitMq"));
                services.AddSingleton<ITaskSender, TaskSender>();
+
+               services.Configure<AzureServiceBusConfiguration>(Configuration.GetSection("AzureServiceBus"));
+               services.AddSingleton<IServiceBusSender, ServiceBusSender>();
 
                services.AddControllers();
           }

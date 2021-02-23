@@ -7,6 +7,7 @@ using Common.Messaging;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TaskMicroservice.DataPresentation.Models;
+using TaskMicroservice.Messaging.AzureServiceBus.Publishing;
 using TaskMicroservice.Messaging.Publishing;
 using TaskMicroservice.Services.Interfaces;
 
@@ -20,11 +21,13 @@ namespace TaskMicroservice.Controllers
           private readonly ILogger _logger;
           private readonly ITaskService _taskService;
           private readonly ITaskSender _taskSender;
+          private readonly IServiceBusSender _serviceBusSender;
 
-          public TasksController(ITaskService taskService, ITaskSender taskSender, ILogger<TasksController> logger) 
+          public TasksController(ITaskService taskService, ITaskSender taskSender, IServiceBusSender serviceBusSender, ILogger<TasksController> logger) 
           {
                _taskService = taskService;
                _taskSender = taskSender;
+               _serviceBusSender = serviceBusSender;
                _logger = logger;
           }
 
@@ -39,9 +42,12 @@ namespace TaskMicroservice.Controllers
           }
 
           [HttpPost]
-          public IActionResult AddTask([FromBody]WorkTask task)
+          public async Task<IActionResult> AddTask([FromBody]WorkTask task)
           {
-               _taskSender.SendMessage(new TaskAssignedMessage { TaskId = task.Id, TaskName = task.Title, AssignedByUserId = task.AssignedByUserId, AssignedToUserId = task.AssignedToUserId });
+               var taskAssignedMessage = new TaskAssignedMessage { TaskId = task.Id, TaskName = task.Title, AssignedByUserId = task.AssignedByUserId, AssignedToUserId = task.AssignedToUserId };
+               
+               _taskSender.SendMessage(taskAssignedMessage);
+               await _serviceBusSender.SendMessage(taskAssignedMessage);
 
                return Ok();
           }

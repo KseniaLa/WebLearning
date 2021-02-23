@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using UserMicroservice.Messaging.AzureServiceBus.Configuration;
+using UserMicroservice.Messaging.AzureServiceBus.Consuming;
 using UserMicroservice.Messaging.Configuration;
 using UserMicroservice.Messaging.Consuming;
 using UserMicroservice.Services;
@@ -47,6 +49,10 @@ namespace UserMicroservice
                     services.AddHostedService<TaskAssignedReceiver>();
                }
 
+               services.Configure<AzureServiceBusConfiguration>(Configuration.GetSection("AzureServiceBus"));
+               services.AddSingleton<IServiceBusConsumer, ServiceBusConsumer>();
+               services.AddTransient<ITaskProcessor, TaskProcessor>();
+
                services.AddControllers();
           }
 
@@ -66,6 +72,9 @@ namespace UserMicroservice
                {
                     endpoints.MapControllers();
                });
+
+               var bus = app.ApplicationServices.GetService<IServiceBusConsumer>();
+               bus.RegisterOnMessageHandlerAndReceiveMessages();
           }
      }
 }
