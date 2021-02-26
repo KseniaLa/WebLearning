@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using TaskMicroservice.DataPresentation.Models;
 
-namespace TaskMicroservice.Messaging.Publishing
+namespace TaskMicroservice.Messaging.RabbitMQ.Publishing
 {
      public interface ITaskSender
      {

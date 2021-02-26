@@ -6,9 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TaskMicroservice.DataPresentation.Models;
-using TaskMicroservice.Messaging.Configuration;
+using TaskMicroservice.Messaging.RabbitMQ.Configuration;
 
-namespace TaskMicroservice.Messaging.Publishing
+namespace TaskMicroservice.Messaging.RabbitMQ.Publishing
 {
      public class TaskSender : ITaskSender
      {
@@ -32,15 +32,13 @@ namespace TaskMicroservice.Messaging.Publishing
           {
                if (ConnectionExists())
                {
-                    using (var channel = _connection.CreateModel())
-                    {
-                         channel.ExchangeDeclare(exchange: _exchange, type: ExchangeType.Fanout);
+                    using var channel = _connection.CreateModel();
+                    channel.ExchangeDeclare(exchange: _exchange, type: ExchangeType.Fanout);
 
-                         var json = JsonConvert.SerializeObject(task);
-                         var body = Encoding.UTF8.GetBytes(json);
+                    var json = JsonConvert.SerializeObject(task);
+                    var body = Encoding.UTF8.GetBytes(json);
 
-                         channel.BasicPublish(exchange: _exchange, routingKey: "", basicProperties: null, body: body);
-                    }
+                    channel.BasicPublish(exchange: _exchange, routingKey: "", basicProperties: null, body: body);
                }
           }
 

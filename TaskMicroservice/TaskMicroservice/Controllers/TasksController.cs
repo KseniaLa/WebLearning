@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TaskMicroservice.DataPresentation.Models;
 using TaskMicroservice.Messaging.AzureServiceBus.Publishing;
-using TaskMicroservice.Messaging.Publishing;
+using TaskMicroservice.Messaging.RabbitMQ.Publishing;
 using TaskMicroservice.Services.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860

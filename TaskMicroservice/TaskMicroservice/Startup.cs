@@ -12,8 +12,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using TaskMicroservice.Messaging.AzureServiceBus.Configuration;
 using TaskMicroservice.Messaging.AzureServiceBus.Publishing;
-using TaskMicroservice.Messaging.Configuration;
-using TaskMicroservice.Messaging.Publishing;
+using TaskMicroservice.Messaging.RabbitMQ.Configuration;
+using TaskMicroservice.Messaging.RabbitMQ.Publishing;
 using TaskMicroservice.Services;
 using TaskMicroservice.Services.Interfaces;
 

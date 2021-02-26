@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using UserMicroservice.Messaging.AzureServiceBus.Configuration;
 using UserMicroservice.Messaging.AzureServiceBus.Consuming;
-using UserMicroservice.Messaging.Configuration;
+using UserMicroservice.Messaging.RabbitMQ.Configuration;
 using UserMicroservice.Messaging.Consuming;
 using UserMicroservice.Services;
 using UserMicroservice.Services.Interfaces;

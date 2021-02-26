@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using UserMicroservice.Messaging.Configuration;
+using UserMicroservice.Messaging.RabbitMQ.Configuration;
 
 namespace UserMicroservice.Messaging.Consuming
 {

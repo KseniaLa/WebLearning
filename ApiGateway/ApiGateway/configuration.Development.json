@@ -23,6 +23,18 @@
       ],
       "UpstreamPathTemplate": "/api/tasks",
       "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tasks",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 62964
+        }
+      ],
+      "UpstreamPathTemplate": "/api/tasks",
+      "UpstreamHttpMethod": [ "Post", "Delete", "Options" ]
     }
   ],
   "GlobalConfiguration": {
