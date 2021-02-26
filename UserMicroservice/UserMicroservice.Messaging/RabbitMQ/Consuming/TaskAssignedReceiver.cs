@@ -12,7 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UserMicroservice.Messaging.RabbitMQ.Configuration;
 
-namespace UserMicroservice.Messaging.Consuming
+namespace UserMicroservice.Messaging.RabbitMQ.Consuming
 {
      public class TaskAssignedReceiver : BackgroundService
      {
