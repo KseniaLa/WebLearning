@@ -1,5 +1,10 @@
 # WebLearning
 ## Messaging testing
+##### RabbitMQ message bus:
+![image](https://user-images.githubusercontent.com/29177371/109613332-0cef4f00-7b42-11eb-84bc-80ea784f3147.png)
+##### Azure Service Bus message bus:
+![image](https://user-images.githubusercontent.com/29177371/109613473-40ca7480-7b42-11eb-9ac5-5be0d7703698.png)
+
 1. Run RabbitMQ locally with Docker:
 ```
 docker run -d --hostname my-rabbit --name some-rabbit -e RABBITMQ_DEFAULT_USER=user -e RABBITMQ_DEFAULT_PASS=password rabbitmq:3-management
