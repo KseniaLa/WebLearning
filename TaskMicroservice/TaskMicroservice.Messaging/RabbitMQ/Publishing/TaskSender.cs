@@ -18,14 +18,14 @@ namespace TaskMicroservice.Messaging.RabbitMQ.Publishing
           private readonly string _username;
           private IConnection _connection;
 
+          private readonly object locker = new object();
+
           public TaskSender(IOptions<RabbitMqConfiguration> rabbitMqOptions)
           {
                _hostname = rabbitMqOptions.Value.Hostname;
                _exchange = rabbitMqOptions.Value.Exchange;
                _username = rabbitMqOptions.Value.UserName;
                _password = rabbitMqOptions.Value.Password;
-
-               CreateConnection();
           }
 
           public void SendMessage(TaskAssignedMessage task)
@@ -62,12 +62,16 @@ namespace TaskMicroservice.Messaging.RabbitMQ.Publishing
 
           private bool ConnectionExists()
           {
-               if (_connection != null)
+               if (_connection == null)
                {
-                    return true;
+                    lock (locker)
+                    {
+                         if (_connection == null)
+                         {
+                              CreateConnection();
+                         }
+                    }
                }
-
-               CreateConnection();
 
                return _connection != null;
           }

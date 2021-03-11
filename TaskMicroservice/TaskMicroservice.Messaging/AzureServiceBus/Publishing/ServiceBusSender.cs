@@ -19,13 +19,13 @@ namespace TaskMicroservice.Messaging.AzureServiceBus.Publishing
           private readonly ILogger _logger;
           private QueueClient _queueClient;
 
+          private readonly object locker = new object();
+
           public ServiceBusSender(IOptions<AzureServiceBusConfiguration> asureServiceBusOptions, ILogger<ServiceBusSender> logger)
           {
                _connectionString = asureServiceBusOptions.Value.ConnectionString;
                _queueName = asureServiceBusOptions.Value.QueueName;
                _logger = logger;
-
-               CreateConnection();
           }
 
           private void CreateConnection()
@@ -42,12 +42,16 @@ namespace TaskMicroservice.Messaging.AzureServiceBus.Publishing
 
           private bool ConnectionExists()
           {
-               if (_queueClient != null)
+               if (_queueClient == null)
                {
-                    return true;
+                    lock (locker)
+                    {
+                         if (_queueClient == null)
+                         {
+                              CreateConnection();
+                         }
+                    }
                }
-
-               CreateConnection();
 
                return _queueClient != null;
           }
@@ -59,7 +63,7 @@ namespace TaskMicroservice.Messaging.AzureServiceBus.Publishing
                     var data = JsonConvert.SerializeObject(payload);
                     var message = new Message(Encoding.UTF8.GetBytes(data));
 
-                    await _queueClient.SendAsync(message);
+                    await _queueClient.SendAsync(message).ConfigureAwait(false);
                }
           }
      }

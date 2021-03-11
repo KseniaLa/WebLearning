@@ -47,7 +47,7 @@ namespace UserMicroservice.Messaging.AzureServiceBus.Consuming
 
                var taskPayload = JsonConvert.DeserializeObject<TaskAssignedMessage>(Encoding.UTF8.GetString(message.Body));
                _processData.Process(taskPayload);
-               await _queueClient.CompleteAsync(message.SystemProperties.LockToken);
+               await _queueClient.CompleteAsync(message.SystemProperties.LockToken).ConfigureAwait(false);
 
                _logger.LogInformation("Finish message processing");
           }
@@ -66,7 +66,7 @@ namespace UserMicroservice.Messaging.AzureServiceBus.Consuming
 
           public async Task CloseQueueAsync()
           {
-               await _queueClient.CloseAsync();
+               await _queueClient.CloseAsync().ConfigureAwait(false);
           }
      }
 }
