@@ -14,7 +14,7 @@ namespace UserMicroservice.Messaging.AzureServiceBus.Consuming
 {
      public class ServiceBusConsumer : IServiceBusConsumer
      {
-          private readonly ITaskProcessor _processData;
+          private readonly ITaskProcessor _dataProcessor;
           private readonly QueueClient _queueClient;
           private readonly ILogger _logger;
 
@@ -22,7 +22,7 @@ namespace UserMicroservice.Messaging.AzureServiceBus.Consuming
               IOptions<AzureServiceBusConfiguration> asureServiceBusOptions,
               ILogger<ServiceBusConsumer> logger)
           {
-               _processData = taskProcessor;
+               _dataProcessor = taskProcessor;
                _logger = logger;
 
                var connectionString = asureServiceBusOptions.Value.ConnectionString;
@@ -46,7 +46,7 @@ namespace UserMicroservice.Messaging.AzureServiceBus.Consuming
                _logger.LogInformation("Start message processing");
 
                var taskPayload = JsonConvert.DeserializeObject<TaskAssignedMessage>(Encoding.UTF8.GetString(message.Body));
-               _processData.Process(taskPayload);
+               _dataProcessor.Process(taskPayload);
                await _queueClient.CompleteAsync(message.SystemProperties.LockToken).ConfigureAwait(false);
 
                _logger.LogInformation("Finish message processing");
